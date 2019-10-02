@@ -974,7 +974,7 @@ namespace ExtremeTetris
                                 Color.White);
                     }
 
-            _spriteBatch.DrawString(_debugFont, "Score: " + _currentScore.getScore(), new Vector2(_table., _topTableOffset.Y), Color.White);
+            _spriteBatch.DrawString(_debugFont, "Score: " + _currentScore.getScore(), new Vector2(_tableNextShapeStart.X, _tableNextShapeStart.Y + _tableNextShape.getRow() * _emptyBlockTex.Width + _tableNextShape.getSpacing() * 4), Color.White);
 
             if (DEBUG)
             {
