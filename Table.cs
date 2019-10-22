@@ -12,79 +12,101 @@ namespace ExtremeTetris
         public int spacing;
         public int center;
 
-        public void createTable(int width, int height, int spacing)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="spacing"></param>
+        public void CreateTable(int width, int height, int spacing)
         {
             tableContains = new bool[height, width];
-            setCol(width);
-            setRow(height);
-            setSpacing(spacing);
-            setCenter(width);
+            SetCol(width);
+            SetRow(height);
+            SetSpacing(spacing);
+            SetCenter(width);
         }
 
         /// <summary>
-        /// Cleans the table appearance
+        /// Cleans the table contains
         /// </summary>
-        public void clear()
+        public void Clear()
         {
-            for (int y = 0; y < getRow(); y++)
-                for (int x = 0; x < getCol(); x++)
+            for (int y = 0; y < GetRow(); y++)
+                for (int x = 0; x < GetCol(); x++)
                 {
                     tableContains[y, x] = false;
                 }
         }
 
-        private void setCol(int value)
+        /// <summary>
+        /// Changes Column variable
+        /// </summary>
+        /// <param name="value"></param>
+        private void SetCol(int value)
         {
             col = value;
         }
 
-        private void setRow(int value)
+        /// <summary>
+        /// Changes Row variable
+        /// </summary>
+        /// <param name="value"></param>
+        private void SetRow(int value)
         {
             row = value;
         }
 
-        private void setSpacing(int value)
+        /// <summary>
+        /// Changes Table Spacing
+        /// </summary>
+        /// <param name="value"></param>
+        private void SetSpacing(int value)
         {
             spacing = value;
         }
 
-        private void setCenter(int value)
+        /// <summary>
+        /// Changes Table center
+        /// </summary>
+        /// <param name="value"></param>
+        private void SetCenter(int value)
         {
             center = value / 2;
         }
 
         /// <summary>
-        /// Get amount of colomns
+        /// Get Colomn variable (amount of columns)
         /// </summary>
         /// <returns>Colomns of int type</returns>
-        public int getCol()
+        public int GetCol()
         {
             return col;
         }
 
         /// <summary>
-        /// Get amount of rows
+        /// Get Row variable (amount of rows)
         /// </summary>
         /// <returns>Rows of int type</returns>
-        public int getRow()
+        public int GetRow()
         {
             return row;
         }
 
         /// <summary>
-        /// Get spacing
+        /// Get Spacing variable
         /// </summary>
         /// <returns>Spacing of int type</returns>
-        public int getSpacing()
+        public int GetSpacing()
         {
             return spacing;
         }
 
         /// <summary>
-        /// Get center of table
+        /// Get Center variable (Table Center)
         /// </summary>
         /// <returns>Center of int type</returns>
-        public int getCenter()
+        public int GetCenter()
         {
             return center;
         }

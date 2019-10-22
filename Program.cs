@@ -194,12 +194,12 @@ namespace ExtremeTetris
 
             #region Gaming
             _table = new Table();
-            _table.createTable(15, 20, 1);
+            _table.CreateTable(15, 20, 1);
             _tableStart = new Vector2(_leftGlobalSideOffset, _topGlobalSideOffset);
 
             _tableNextShape = new Table();
-            _tableNextShape.createTable(4, 4, _table.getSpacing());
-            _tableNextShapeStart = new Vector2((_leftGlobalSideOffset + (_table.getCol() * 30) + (_table.getSpacing() * (_table.getCol() - 1)) + (_table.getSpacing() * 2)),
+            _tableNextShape.CreateTable(4, 4, _table.GetSpacing());
+            _tableNextShapeStart = new Vector2((_leftGlobalSideOffset + (_table.GetCol() * 30) + (_table.GetSpacing() * (_table.GetCol() - 1)) + (_table.GetSpacing() * 2)),
                                                (_topGlobalSideOffset));
 
             _currentScore = new Score();
@@ -216,7 +216,7 @@ namespace ExtremeTetris
         /// <summary>
         /// Setups variables before new game started
         /// </summary>
-        private void initialize_NewGame()
+        private void Initialize_NewGame()
         {
             _currentShape = new Shape();
             _nextShape = new Shape();
@@ -251,8 +251,8 @@ namespace ExtremeTetris
 
             _debugFont = Content.Load<SpriteFont>("Debug-font");
 
-            _topTableOffset = new Vector2((_leftGlobalSideOffset + (_currentBlockTex.Width * _table.getCol()) + (_table.getSpacing() * (_table.getCol() - 1)) + _rightGlobalSideOffset),
-                                              (_topGlobalSideOffset + (_currentBlockTex.Width * _table.getRow()) + (_table.getSpacing() * (_table.getRow() - 1)) + _topGlobalSideOffset));
+            _topTableOffset = new Vector2((_leftGlobalSideOffset + (_currentBlockTex.Width * _table.GetCol()) + (_table.GetSpacing() * (_table.GetCol() - 1)) + _rightGlobalSideOffset),
+                                              (_topGlobalSideOffset + (_currentBlockTex.Width * _table.GetRow()) + (_table.GetSpacing() * (_table.GetRow() - 1)) + _topGlobalSideOffset));
             #endregion Gaming
 
             #region Gaming Pause Menu
@@ -271,23 +271,23 @@ namespace ExtremeTetris
 
             // Active window
             if (_active_MainMenu)
-                update_MainMenu();
+                Update_MainMenu();
             else
             if (_active_SettingsMenu)
-                update_SettingsMenu();
+                Update_SettingsMenu();
             else
             if (_active_CreditsMenu)
-                update_CreditsMenu();
+                Update_CreditsMenu();
             else
             if (_active_Gaming)
             {
                 if (_active_GamingTutorial)
-                    update_GamingTutorial();
+                    Update_GamingTutorial();
                 else
                 if (_active_GamingPauseMenu)
-                    update_GamingPauseMenu();
+                    Update_GamingPauseMenu();
                 else
-                    update_Gaming();
+                    Update_Gaming();
             }
 
             _previousGamePadState = _currentGamePadState;
@@ -298,23 +298,23 @@ namespace ExtremeTetris
         /// <summary>
         /// Updates Main Menu logic
         /// </summary>
-        private void update_MainMenu()
+        private void Update_MainMenu()
         {
             #region Select Button
             if (_currentGamePadState.IsButtonDown(gp_select) && _previousGamePadState.IsButtonUp(gp_select) ||
                (_currentKeyboardState.IsKeyDown(kb_select) && _previousKeyboardState.IsKeyUp(kb_select)))
             {
-                switch (_mainMenu.getMenus()[_mainMenu.getSelectedIndex()])
+                switch (_mainMenu.Menus[_mainMenu.SelectedIndex])
                 {
                     case "New Game":
-                        initialize_NewGame();
-                        setActiveWindow(ref _active_Gaming);
+                        Initialize_NewGame();
+                        SetActiveWindow(ref _active_Gaming);
                         break;
                     case "Settings":
-                        setActiveWindow(ref _active_SettingsMenu);
+                        SetActiveWindow(ref _active_SettingsMenu);
                         break;
                     case "Credits":
-                        setActiveWindow(ref _active_CreditsMenu);
+                        SetActiveWindow(ref _active_CreditsMenu);
                         break;
                     case "Quit":
                         Exit();
@@ -328,7 +328,7 @@ namespace ExtremeTetris
                 (_currentGamePadState.IsButtonDown(gp_down) && _previousGamePadState.IsButtonUp(gp_down)) ||
                 (_currentKeyboardState.IsKeyDown(kb_down) && _previousKeyboardState.IsKeyUp(kb_down)))
             {
-                _mainMenu.increaseMenu();
+                _mainMenu.IncreaseMenu();
             }
             #endregion Down Button
 
@@ -337,7 +337,7 @@ namespace ExtremeTetris
                 (_currentGamePadState.IsButtonDown(gp_up) && _previousGamePadState.IsButtonUp(gp_up)) ||
                 (_currentKeyboardState.IsKeyDown(kb_up) && _previousKeyboardState.IsKeyUp(kb_up)))
             {
-                _mainMenu.decreaseMenu();
+                _mainMenu.DecreaseMenu();
             }
             #endregion Up Button
         }
@@ -345,16 +345,16 @@ namespace ExtremeTetris
         /// <summary>
         /// Updates Settings Menu logic
         /// </summary>
-        private void update_SettingsMenu()
+        private void Update_SettingsMenu()
         {
             #region Select Button
             if (_currentGamePadState.IsButtonDown(gp_select) && _previousGamePadState.IsButtonUp(gp_select) ||
                (_currentKeyboardState.IsKeyDown(kb_select) && _previousKeyboardState.IsKeyUp(kb_select)))
             {
-                switch (_settingsMenu.getMenus()[_settingsMenu.getSelectedIndex()])
+                switch (_settingsMenu.Menus[_settingsMenu.SelectedIndex])
                 {
                     case "Back":
-                        setActiveWindow(ref _active_MainMenu);
+                        SetActiveWindow(ref _active_MainMenu);
                         break;
                 }
             }
@@ -364,7 +364,7 @@ namespace ExtremeTetris
             if ((_currentGamePadState.IsButtonDown(gp_back) && _previousGamePadState.IsButtonUp(gp_back)) ||
                 (_currentKeyboardState.IsKeyDown(kb_back) && _previousKeyboardState.IsKeyUp(kb_back)))
             {
-                setActiveWindow(ref _active_MainMenu);
+                SetActiveWindow(ref _active_MainMenu);
             }
             #endregion Back Button
 
@@ -373,7 +373,7 @@ namespace ExtremeTetris
                 (_currentGamePadState.IsButtonDown(gp_down) && _previousGamePadState.IsButtonUp(gp_down)) ||
                 (_currentKeyboardState.IsKeyDown(kb_down) && _previousKeyboardState.IsKeyUp(kb_down)))
             {
-                _settingsMenu.increaseMenu();
+                _settingsMenu.IncreaseMenu();
             }
             #endregion Down Button
 
@@ -382,7 +382,7 @@ namespace ExtremeTetris
                 (_currentGamePadState.IsButtonDown(gp_up) && _previousGamePadState.IsButtonUp(gp_up)) ||
                 (_currentKeyboardState.IsKeyDown(kb_up) && _previousKeyboardState.IsKeyUp(kb_up)))
             {
-                _settingsMenu.decreaseMenu();
+                _settingsMenu.DecreaseMenu();
             }
             #endregion Up Button
         }
@@ -390,7 +390,7 @@ namespace ExtremeTetris
         /// <summary>
         /// Updates Credits Menu logic
         /// </summary>
-        private void update_CreditsMenu()
+        private void Update_CreditsMenu()
         {
             #region Select Button
             if (_currentGamePadState.IsButtonDown(gp_back) && _previousGamePadState.IsButtonUp(gp_back) ||
@@ -398,7 +398,7 @@ namespace ExtremeTetris
                 (_currentKeyboardState.IsKeyDown(kb_back) && _previousKeyboardState.IsKeyUp(kb_back)) ||
                 (_currentKeyboardState.IsKeyDown(kb_select) && _previousKeyboardState.IsKeyUp(kb_select)))
             {
-                setActiveWindow(ref _active_MainMenu);
+                SetActiveWindow(ref _active_MainMenu);
             }
             #endregion Select Button
         }
@@ -406,7 +406,7 @@ namespace ExtremeTetris
         /// <summary>
         /// Updates Gaming Tutorial logic
         /// </summary>
-        private void update_GamingTutorial()
+        private void Update_GamingTutorial()
         {
             #region Select Button
             if (_currentGamePadState.IsButtonDown(gp_select) && _previousGamePadState.IsButtonUp(gp_select) ||
@@ -420,35 +420,35 @@ namespace ExtremeTetris
         /// <summary>
         /// Updates Gaming logic
         /// </summary>
-        private void update_Gaming()
+        private void Update_Gaming()
         {
             #region Timer
             _elapsedTime += _gameTime.ElapsedGameTime.TotalMilliseconds;
             // If block even exists
-            if (_currentShape.checkExisting())
+            if (_currentShape.CheckExisting())
             {
                 // If elapsed time more or eq time interval
                 if (_elapsedTime >= _timeInterval)
                 {
                     // If moving down successful
-                    if (_currentShape.moveShapeDown(_table))
+                    if (_currentShape.MoveShapeDown(_table))
                     { }
                     else
                     {
-                        _currentShape.makeShapeTrue(_table);
-                        _nextShape.changeTable(_table);
+                        _currentShape.MakeShapeTrue(_table);
+                        _nextShape.ChangeTable(_table);
                         _currentShape = new Shape(_nextShape);
-                        _nextShape.createNewShape(_tableNextShape);
+                        _nextShape.CreateNewShape(_tableNextShape);
                     }
                     _elapsedTime -= _timeInterval;
                 }
             }
             else
             {
-                _nextShape.createNewShape(_tableNextShape);
-                _nextShape.changeTable(_table);
+                _nextShape.CreateNewShape(_tableNextShape);
+                _nextShape.ChangeTable(_table);
                 _currentShape = new Shape(_nextShape);
-                _nextShape.createNewShape(_tableNextShape);
+                _nextShape.CreateNewShape(_tableNextShape);
             }
             #endregion Timer
 
@@ -457,7 +457,7 @@ namespace ExtremeTetris
                 (_currentGamePadState.IsButtonDown(gp_left) && _previousGamePadState.IsButtonUp(gp_left)) ||
                 (_currentKeyboardState.IsKeyDown(kb_aleft) && _previousKeyboardState.IsKeyUp(kb_aleft)))
             {
-                _currentShape.moveShapeLeft(_table);
+                _currentShape.MoveShapeLeft(_table);
             }
             #endregion Left Button
 
@@ -466,7 +466,7 @@ namespace ExtremeTetris
                 (_currentGamePadState.IsButtonDown(gp_right) && _previousGamePadState.IsButtonUp(gp_right)) ||
                 (_currentKeyboardState.IsKeyDown(kb_dright) && _previousKeyboardState.IsKeyUp(kb_dright)))
             {
-                _currentShape.moveShapeRight(_table);
+                _currentShape.MoveShapeRight(_table);
             }
             #endregion Right Button
 
@@ -475,7 +475,7 @@ namespace ExtremeTetris
                 (_currentGamePadState.IsButtonDown(gp_moveDown) && _previousGamePadState.IsButtonUp(gp_moveDown)) ||
                 (_currentKeyboardState.IsKeyDown(kb_sdown) && _previousKeyboardState.IsKeyUp(kb_sdown)))
             {
-                _currentShape.moveShapeDown(_table);
+                _currentShape.MoveShapeDown(_table);
 
                 _elapsedTime += _gameTime.ElapsedGameTime.TotalMilliseconds;
                 // If elapsed time more or eq time interval
@@ -491,12 +491,12 @@ namespace ExtremeTetris
                 (_currentKeyboardState.IsKeyDown(kb_dropdown) && _previousKeyboardState.IsKeyUp(kb_dropdown)))
             {
                 // If successfully moved to the bottom
-                if (_currentShape.tryFindBottom(_table) != 0)
+                if (_currentShape.TryFindBottom(_table) != 0)
                 {
-                    _currentShape.makeShapeTrue(_table);
-                    _nextShape.changeTable(_table);
+                    _currentShape.MakeShapeTrue(_table);
+                    _nextShape.ChangeTable(_table);
                     _currentShape = new Shape(_nextShape);
-                    _nextShape.createNewShape(_tableNextShape);
+                    _nextShape.CreateNewShape(_tableNextShape);
 
                     _elapsedTime += _gameTime.ElapsedGameTime.TotalMilliseconds;
                     // If elapsed time more or eq time interval
@@ -513,9 +513,9 @@ namespace ExtremeTetris
                 (_currentKeyboardState.IsKeyDown(kb_rotateLeft) && _previousKeyboardState.IsKeyUp(kb_rotateLeft)))
             {
                 // If block even exists
-                if (_currentShape.checkExisting())
+                if (_currentShape.CheckExisting())
                 {
-                    _currentShape.rotateLeft(_table);
+                    _currentShape.RotateLeft(_table);
                 }
             }
             #endregion Rotate Left
@@ -525,9 +525,9 @@ namespace ExtremeTetris
                 (_currentKeyboardState.IsKeyDown(kb_rotateRight) && _previousKeyboardState.IsKeyUp(kb_rotateRight)))
             {
                 // If block even exists
-                if (_currentShape.checkExisting())
+                if (_currentShape.CheckExisting())
                 {
-                    _currentShape.rotateRight(_table);
+                    _currentShape.RotateRight(_table);
                 }
             }
             #endregion Rotate Rigth
@@ -536,7 +536,7 @@ namespace ExtremeTetris
             if ((_currentGamePadState.IsButtonDown(gp_pause) && _previousGamePadState.IsButtonUp(gp_pause)) ||
                 (_currentKeyboardState.IsKeyDown(kb_pause) && _previousKeyboardState.IsKeyUp(kb_pause)))
             {
-                setActiveWindow(ref _active_Gaming, ref _active_GamingPauseMenu);
+                SetActiveWindow(ref _active_Gaming, ref _active_GamingPauseMenu);
             }
             #endregion Pause Button
 
@@ -550,32 +550,32 @@ namespace ExtremeTetris
 
             #region Lines Check
             short count = 0;
-            for (int y = _table.getRow() - 1; y >= 0; y--)
+            for (int y = _table.GetRow() - 1; y >= 0; y--)
             {
                 int numCollected = 0;
-                for (int x = 0; x < _table.getCol(); x++)
+                for (int x = 0; x < _table.GetCol(); x++)
                 {
                     if (_table.tableContains[y, x] == true)
                         numCollected++;
                 }
                 // If every cell in row is filled
-                if (numCollected == _table.getCol())
+                if (numCollected == _table.GetCol())
                 {
                     // Clead every cell in row
-                    for (int x = 0; x < _table.getCol(); x++)
+                    for (int x = 0; x < _table.GetCol(); x++)
                     {
                         _table.tableContains[y, x] = false;
                     }
                     // Move upside cells to the bottom
                     if (y != 0)
                         for (int yy = y; yy > 0; yy--)
-                            for (int xx = 0; xx < _table.getCol(); xx++)
+                            for (int xx = 0; xx < _table.GetCol(); xx++)
                                 _table.tableContains[yy, xx] = _table.tableContains[yy - 1, xx];
                     count++;
                 }
             }
             if (count != 0)
-                _currentScore.addScore(count);
+                _currentScore.AddScore(count);
             #endregion Lines Check
 
             /*
@@ -640,7 +640,7 @@ namespace ExtremeTetris
         /// <summary>
         /// Updates Gaming Pause Menu logic
         /// </summary>
-        private void update_GamingPauseMenu()
+        private void Update_GamingPauseMenu()
         {
             #region Timer
             _elapsedTime += _gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -655,14 +655,14 @@ namespace ExtremeTetris
             if (_currentGamePadState.IsButtonDown(gp_select) && _previousGamePadState.IsButtonUp(gp_select) ||
                 (_currentKeyboardState.IsKeyDown(kb_select) && _previousKeyboardState.IsKeyUp(kb_select)))
             {
-                switch (_gamingPauseMenu.getMenus()[_gamingPauseMenu.getSelectedIndex()])
+                switch (_gamingPauseMenu.Menus[_gamingPauseMenu.SelectedIndex])
                 {
                     case "Back":
-                        setActiveWindow(ref _active_Gaming);
+                        SetActiveWindow(ref _active_Gaming);
                         break;
                     case "Quit":
-                        clearGame();
-                        setActiveWindow(ref _active_MainMenu);
+                        ClearGame();
+                        SetActiveWindow(ref _active_MainMenu);
                         break;
                 }
             }
@@ -673,7 +673,7 @@ namespace ExtremeTetris
                 (_currentGamePadState.IsButtonDown(gp_down) && _previousGamePadState.IsButtonUp(gp_down)) ||
                 (_currentKeyboardState.IsKeyDown(kb_down) && _previousKeyboardState.IsKeyUp(kb_down)))
             {
-                _gamingPauseMenu.increaseMenu();
+                _gamingPauseMenu.IncreaseMenu();
             }
             #endregion Down Button
 
@@ -682,7 +682,7 @@ namespace ExtremeTetris
                 (_currentGamePadState.IsButtonDown(gp_up) && _previousGamePadState.IsButtonUp(gp_up)) ||
                 (_currentKeyboardState.IsKeyDown(kb_up) && _previousKeyboardState.IsKeyUp(kb_up)))
             {
-                _gamingPauseMenu.decreaseMenu();
+                _gamingPauseMenu.DecreaseMenu();
             }
             #endregion Up Button
         }
@@ -693,21 +693,21 @@ namespace ExtremeTetris
         {
             // Active window
             if (_active_MainMenu)
-                draw_MainMenu(true);
+                Draw_MainMenu(true);
             else
             if (_active_SettingsMenu)
-                draw_SettingsMenu(true);
+                Draw_SettingsMenu(true);
             else
             if (_active_CreditsMenu)
-                draw_CreditsMenu(true);
+                Draw_CreditsMenu(true);
             else
             if (_active_Gaming)
             {
-                draw_Gaming(true);
+                Draw_Gaming(true);
                 if (_active_GamingTutorial)
-                    draw_GamingTutorial(false);
+                    Draw_GamingTutorial(false);
                 if (_active_GamingPauseMenu)
-                    draw_GamingPauseMenu(false);
+                    Draw_GamingPauseMenu(false);
             }
 
             base.Draw(gameTime);
@@ -716,7 +716,7 @@ namespace ExtremeTetris
         /// <summary>
         /// Draws Main Menu
         /// </summary>
-        private void draw_MainMenu(bool clear)
+        private void Draw_MainMenu(bool clear)
         {
             if (clear)
                 GraphicsDevice.Clear(Color.Black);
@@ -726,14 +726,14 @@ namespace ExtremeTetris
             _spriteBatch.Draw(blackFill, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.Black * 0.8f);
 
             // Drawing Main Menus
-            for (int n = 0; n < _mainMenu.getNumberOfMenus(); n++)
+            for (int n = 0; n < _mainMenu.NumberOfMenus; n++)
             {
-                if (_mainMenu.getSelectedIndex() == n)
+                if (_mainMenu.SelectedIndex == n)
                     fontColor = Color.Gray;
                 _spriteBatch.DrawString(_debugFont,
                                         _mainMenuMenus[n],
                                         new Vector2((_graphics.PreferredBackBufferWidth / 2) - ((int)_debugFont.MeasureString(_mainMenuMenus[n]).Length() / 2),
-                                                    (_graphics.PreferredBackBufferHeight / 2) - (((_mainMenu.getNumberOfMenus() + 1) / 2) * (50)) + (n * 50)),
+                                                    (_graphics.PreferredBackBufferHeight / 2) - (((_mainMenu.NumberOfMenus + 1) / 2) * (50)) + (n * 50)),
                                         fontColor);
                 fontColor = Color.White;
             }
@@ -763,7 +763,7 @@ namespace ExtremeTetris
         /// <summary>
         /// Draws Settings Menu
         /// </summary>
-        private void draw_SettingsMenu(bool clear)
+        private void Draw_SettingsMenu(bool clear)
         {
             if (clear)
                 GraphicsDevice.Clear(Color.Black);
@@ -773,14 +773,14 @@ namespace ExtremeTetris
             _spriteBatch.Draw(blackFill, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), Color.Black * 0.8f);
 
             // Drawing Settings Menus
-            for (int n = 0; n < _settingsMenu.getNumberOfMenus(); n++)
+            for (int n = 0; n < _settingsMenu.NumberOfMenus; n++)
             {
-                if (_settingsMenu.getSelectedIndex() == n)
+                if (_settingsMenu.SelectedIndex == n)
                     fontColor = Color.Gray;
                 _spriteBatch.DrawString(_debugFont,
                                         _settingsMenus[n],
                                         new Vector2((_graphics.PreferredBackBufferWidth / 2) - ((int)_debugFont.MeasureString(_settingsMenus[n]).Length() / 2),
-                                                    (_graphics.PreferredBackBufferHeight / 2) - (((_settingsMenu.getNumberOfMenus() + 1) / 2) * (50)) + (n * 50)),
+                                                    (_graphics.PreferredBackBufferHeight / 2) - (((_settingsMenu.NumberOfMenus + 1) / 2) * (50)) + (n * 50)),
                                         fontColor);
                 fontColor = Color.White;
             }
@@ -811,7 +811,7 @@ namespace ExtremeTetris
         /// Draws Credits Menu
         /// </summary>
         /// <param name="clear"></param>
-        private void draw_CreditsMenu(bool clear)
+        private void Draw_CreditsMenu(bool clear)
         {
             if (clear)
                 GraphicsDevice.Clear(Color.Black);
@@ -826,12 +826,12 @@ namespace ExtremeTetris
                                     new Vector2((_graphics.PreferredBackBufferWidth / 2) - ((int)_debugFont.MeasureString(_creditsMenus[0]).Length() / 2),
                                                 (100)),
                                     fontColor);
-            for (int n = 1; n < _creditsMenu.getNumberOfMenus(); n++)
+            for (int n = 1; n < _creditsMenu.NumberOfMenus; n++)
             {
                 _spriteBatch.DrawString(_debugFont,
                                         _creditsMenus[n],
                                         new Vector2((_graphics.PreferredBackBufferWidth / 2) - ((int)_debugFont.MeasureString(_creditsMenus[n]).Length() / 2),
-                                                    (_graphics.PreferredBackBufferHeight / 2) - (((_creditsMenu.getNumberOfMenus() + 1) / 2) * (50)) + (n * 50)),
+                                                    (_graphics.PreferredBackBufferHeight / 2) - (((_creditsMenu.NumberOfMenus + 1) / 2) * (50)) + (n * 50)),
                                         fontColor);
                 fontColor = Color.White;
             }
@@ -862,7 +862,7 @@ namespace ExtremeTetris
         /// Draws Tutorial before Gaming
         /// </summary>
         /// <param name="clear"></param>
-        private void draw_GamingTutorial(bool clear)
+        private void Draw_GamingTutorial(bool clear)
         {
             if (clear)
                 GraphicsDevice.Clear(Color.Black);
@@ -907,74 +907,74 @@ namespace ExtremeTetris
         /// <summary>
         /// Draws Gaming
         /// </summary>
-        private void draw_Gaming(bool clear)
+        private void Draw_Gaming(bool clear)
         {
             if (clear)
                 GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
             // Drawing table
-            for (int y = 0; y < _table.getRow(); y++)
-                for (int x = 0; x < _table.getCol(); x++)
+            for (int y = 0; y < _table.GetRow(); y++)
+                for (int x = 0; x < _table.GetCol(); x++)
                     if (_table.tableContains[y, x] == true)
                         _spriteBatch.Draw(_currentBlockTex,
-                            _tableStart + new Vector2(_currentBlockTex.Width * x, _currentBlockTex.Height * y) + new Vector2(_table.getSpacing() * x, _table.getSpacing() * y),
+                            _tableStart + new Vector2(_currentBlockTex.Width * x, _currentBlockTex.Height * y) + new Vector2(_table.GetSpacing() * x, _table.GetSpacing() * y),
                             Color.White);
                     else
                         _spriteBatch.Draw(_emptyBlockTex,
-                            _tableStart + new Vector2(_emptyBlockTex.Width * x, _emptyBlockTex.Height * y) + new Vector2(_table.getSpacing() * x, _table.getSpacing() * y),
+                            _tableStart + new Vector2(_emptyBlockTex.Width * x, _emptyBlockTex.Height * y) + new Vector2(_table.GetSpacing() * x, _table.GetSpacing() * y),
                             Color.White);
 
             // Drawing next shape table
-            for (int y = 0; y < _tableNextShape.getRow(); y++)
-                for (int x = 0; x < _tableNextShape.getCol(); x++)
+            for (int y = 0; y < _tableNextShape.GetRow(); y++)
+                for (int x = 0; x < _tableNextShape.GetCol(); x++)
                     _spriteBatch.Draw(_emptyBlockTex,
-                        _tableNextShapeStart + new Vector2(_emptyBlockTex.Width * x, _emptyBlockTex.Height * y) + new Vector2(_tableNextShape.getSpacing() * x, _tableNextShape.getSpacing() * y),
+                        _tableNextShapeStart + new Vector2(_emptyBlockTex.Width * x, _emptyBlockTex.Height * y) + new Vector2(_tableNextShape.GetSpacing() * x, _tableNextShape.GetSpacing() * y),
                         Color.White);
 
             // Drawing Ghost shape
             if (_ghost_mode)
             {
-                if (_currentShape.checkExisting())
+                if (_currentShape.CheckExisting())
                 {
-                    var offset = _currentShape.tryFindBottomGhost(_table);
+                    var offset = _currentShape.TryFindBottomGhost(_table);
                     for (int y = (int)_currentShape._startBlockPos.Y + offset; y <= (int)_currentShape._endBlockPos.Y + offset; y++)
                         for (int x = (int)_currentShape._startBlockPos.X; x <= (int)_currentShape._endBlockPos.X; x++)
                         {
                             if (_currentShape.currentShape[(_currentShape.shapeDimension - 1) - ((int)_currentShape._endBlockPos.Y + offset - y),
                                 (_currentShape.shapeDimension - 1) - ((int)_currentShape._endBlockPos.X - x)] == true)
                                 _spriteBatch.Draw(_ghostBlockTex,
-                                    _tableStart + new Vector2(_currentBlockTex.Width * x, _currentBlockTex.Height * y) + new Vector2(_table.getSpacing() * x, _table.getSpacing() * y),
+                                    _tableStart + new Vector2(_currentBlockTex.Width * x, _currentBlockTex.Height * y) + new Vector2(_table.GetSpacing() * x, _table.GetSpacing() * y),
                                     Color.White);
                         }
                 }
             }
 
             // Drawing current shape
-            if (_currentShape.checkExisting())
+            if (_currentShape.CheckExisting())
                 for (int y = (int)_currentShape._startBlockPos.Y; y <= (int)_currentShape._endBlockPos.Y; y++)
                     for (int x = (int)_currentShape._startBlockPos.X; x <= (int)_currentShape._endBlockPos.X; x++)
                     {
                         if (_currentShape.currentShape[(_currentShape.shapeDimension - 1) - ((int)_currentShape._endBlockPos.Y - y),
                             (_currentShape.shapeDimension - 1) - ((int)_currentShape._endBlockPos.X - x)] == true)
                             _spriteBatch.Draw(_currentBlockTex,
-                                _tableStart + new Vector2(_currentBlockTex.Width * x, _currentBlockTex.Height * y) + new Vector2(_table.getSpacing() * x, _table.getSpacing() * y),
+                                _tableStart + new Vector2(_currentBlockTex.Width * x, _currentBlockTex.Height * y) + new Vector2(_table.GetSpacing() * x, _table.GetSpacing() * y),
                                 Color.White);
                     }
 
             // Drawing next shape
-            if (_nextShape.checkExisting())
+            if (_nextShape.CheckExisting())
                 for (int y = (int)_nextShape._startBlockPos.Y; y <= (int)_nextShape._endBlockPos.Y; y++)
                     for (int x = (int)_nextShape._startBlockPos.X; x <= (int)_nextShape._endBlockPos.X; x++)
                     {
                         if (_nextShape.currentShape[(_nextShape.shapeDimension - 1) - ((int)_nextShape._endBlockPos.Y - y),
                             (_nextShape.shapeDimension - 1) - ((int)_nextShape._endBlockPos.X - x)] == true)
                             _spriteBatch.Draw(_currentBlockTex,
-                                _tableNextShapeStart + new Vector2(_currentBlockTex.Width * x, _currentBlockTex.Height * y) + new Vector2(_tableNextShape.getSpacing() * x, _tableNextShape.getSpacing() * y),
+                                _tableNextShapeStart + new Vector2(_currentBlockTex.Width * x, _currentBlockTex.Height * y) + new Vector2(_tableNextShape.GetSpacing() * x, _tableNextShape.GetSpacing() * y),
                                 Color.White);
                     }
 
-            _spriteBatch.DrawString(_debugFont, "Score: " + _currentScore.getScore(), new Vector2(_tableNextShapeStart.X, _tableNextShapeStart.Y + _tableNextShape.getRow() * _emptyBlockTex.Width + _tableNextShape.getSpacing() * 4), Color.White);
+            _spriteBatch.DrawString(_debugFont, "Score: " + _currentScore.Score, new Vector2(_tableNextShapeStart.X, _tableNextShapeStart.Y + _tableNextShape.GetRow() * _emptyBlockTex.Width + _tableNextShape.GetSpacing() * 4), Color.White);
 
             if (DEBUG)
             {
@@ -992,7 +992,7 @@ namespace ExtremeTetris
         /// <summary>
         /// Draws Gaming Pause Menu
         /// </summary>
-        private void draw_GamingPauseMenu(bool clear)
+        private void Draw_GamingPauseMenu(bool clear)
         {
             if (clear)
                 GraphicsDevice.Clear(Color.Black);
@@ -1009,14 +1009,14 @@ namespace ExtremeTetris
                                     fontColor);
 
             // Drawing Settings Menus
-            for (int n = 0; n < _gamingPauseMenu.getNumberOfMenus(); n++)
+            for (int n = 0; n < _gamingPauseMenu.NumberOfMenus; n++)
             {
-                if (_gamingPauseMenu.getSelectedIndex() == n)
+                if (_gamingPauseMenu.SelectedIndex == n)
                     fontColor = Color.Gray;
                 _spriteBatch.DrawString(_debugFont,
                                         _gamingPauseMenus[n],
                                         new Vector2((_graphics.PreferredBackBufferWidth / 2) - ((int)_debugFont.MeasureString(_gamingPauseMenus[n]).Length() / 2),
-                                                    (_graphics.PreferredBackBufferHeight / 2) - (((_gamingPauseMenu.getNumberOfMenus() + 1) / 2) * (50)) + (n * 50)),
+                                                    (_graphics.PreferredBackBufferHeight / 2) - (((_gamingPauseMenu.NumberOfMenus + 1) / 2) * (50)) + (n * 50)),
                                         fontColor);
                 fontColor = Color.White;
             }
@@ -1029,10 +1029,10 @@ namespace ExtremeTetris
         /// Changes actual windows by one value
         /// </summary>
         /// <param name="value"></param>
-        private void setActiveWindow(ref bool value)
+        private void SetActiveWindow(ref bool value)
         {
             // Disable all
-            disableActiveWindows();
+            DisableActiveWindows();
 
             // Enable value
             value = true;
@@ -1042,10 +1042,10 @@ namespace ExtremeTetris
         /// Changes actual windows by two values
         /// </summary>
         /// <param name="value"></param>
-        private void setActiveWindow(ref bool value, ref bool value2)
+        private void SetActiveWindow(ref bool value, ref bool value2)
         {
             // Disable all
-            disableActiveWindows();
+            DisableActiveWindows();
 
             // Enable value
             value = true;
@@ -1055,7 +1055,7 @@ namespace ExtremeTetris
         /// <summary>
         /// Disables all actual windows
         /// </summary>
-        private void disableActiveWindows()
+        private void DisableActiveWindows()
         {
             // Disable all
             _active_MainMenu = false;
@@ -1068,11 +1068,11 @@ namespace ExtremeTetris
         /// <summary>
         /// Cleares all the tables, shapes, etc
         /// </summary>
-        private void clearGame()
+        private void ClearGame()
         {
-            _table.clear();
-            _tableNextShape.clear();
-            _currentScore.clear();
+            _table.Clear();
+            _tableNextShape.Clear();
+            _currentScore.Clear();
             // _currentShape will be destructed by himself
             // _nextShape will be destructed by himself
 

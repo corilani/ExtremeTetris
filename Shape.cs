@@ -199,6 +199,9 @@ namespace ExtremeTetris
 
         private static int seed;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Shape()
         {
             _startBlockPos = _defaultBlockPos;
@@ -209,6 +212,10 @@ namespace ExtremeTetris
             seed = numShape2 + numShape3 + numShape4;
         }
 
+        /// <summary>
+        /// Constructor for shape duplicating 
+        /// </summary>
+        /// <param name="dublicateShape"></param>
         public Shape(Shape dublicateShape)
         {
             currentShape = dublicateShape.currentShape;
@@ -218,33 +225,25 @@ namespace ExtremeTetris
             _endBlockPos = dublicateShape._endBlockPos;
         }
 
-        ~Shape()
-        {
-            shape2x2 = null;
-            shape3x3 = null;
-            shape4x4 = null;
-            currentShape = null;
-        }
-
-        private int nextRandomInt(int minValue, int maxExclusiveValue)
+        private int NextRandomInt(int minValue, int maxExclusiveValue)
         {
             long diff = (long)maxExclusiveValue - minValue;
             long upperBound = uint.MaxValue / diff * diff;
             uint ui;
             do
             {
-                ui = generateRandomUInt();
+                ui = GenerateRandomUInt();
             } while (ui >= upperBound);
             return (int)(minValue + (ui % diff));
         }
 
-        private uint generateRandomUInt()
+        private uint GenerateRandomUInt()
         {
-            var randomBytes = generateRandomBytes(sizeof(uint));
+            var randomBytes = GenerateRandomBytes(sizeof(uint));
             return System.BitConverter.ToUInt32(randomBytes, 0);
         }
 
-        private byte[] generateRandomBytes(int bytesNumber)
+        private byte[] GenerateRandomBytes(int bytesNumber)
         {
             byte[] buffer = new byte[bytesNumber];
             rngCsp.GetBytes(buffer);
@@ -252,11 +251,11 @@ namespace ExtremeTetris
         }
 
         /// <summary>
-        /// Creates new shape with selected index
+        /// Creates new shape with selected shape index
         /// </summary>
         /// <param name="table"></param>
         /// <param name="index"></param>
-        public void createNewShape(Table table, int index)
+        public void CreateNewShape(Table table, int index)
         {
             currentShapeIndex = index;
             Console.WriteLine(currentShapeIndex);
@@ -271,8 +270,8 @@ namespace ExtremeTetris
                     {
                         currentShape[x, y] = shape2x2[currentShapeIndex, x, y];
                     }
-                _startBlockPos = new Vector2(table.getCenter() - 1, 0);
-                _endBlockPos = new Vector2(table.getCenter() + 0, shapeDimension - 1);
+                _startBlockPos = new Vector2(table.GetCenter() - 1, 0);
+                _endBlockPos = new Vector2(table.GetCenter() + 0, shapeDimension - 1);
             }
             else
             // 3x3
@@ -286,8 +285,8 @@ namespace ExtremeTetris
                     {
                         currentShape[x, y] = shape3x3[currentShapeIndex - numShape2, x, y];
                     }
-                _startBlockPos = new Vector2(table.getCenter() - 1, 0);
-                _endBlockPos = new Vector2(table.getCenter() + 1, shapeDimension - 1);
+                _startBlockPos = new Vector2(table.GetCenter() - 1, 0);
+                _endBlockPos = new Vector2(table.GetCenter() + 1, shapeDimension - 1);
             }
             else
             // 4x4
@@ -300,8 +299,8 @@ namespace ExtremeTetris
                     {
                         currentShape[x, y] = shape4x4[currentShapeIndex - (numShape2 + numShape3), x, y];
                     }
-                _startBlockPos = new Vector2(table.getCenter() - 2, 0);
-                _endBlockPos = new Vector2(table.getCenter() + 1, shapeDimension - 1);
+                _startBlockPos = new Vector2(table.GetCenter() - 2, 0);
+                _endBlockPos = new Vector2(table.GetCenter() + 1, shapeDimension - 1);
             }
         }
 
@@ -309,9 +308,9 @@ namespace ExtremeTetris
         /// Creates new random shape
         /// </summary>
         /// <param name="table"></param>
-        public void createNewShape(Table table)
+        public void CreateNewShape(Table table)
         {
-            currentShapeIndex = nextRandomInt(0, seed);
+            currentShapeIndex = NextRandomInt(0, seed);
             Console.WriteLine(currentShapeIndex);
             // 2x2
             if (currentShapeIndex < numShape2)
@@ -324,8 +323,8 @@ namespace ExtremeTetris
                     {
                         currentShape[x, y] = shape2x2[currentShapeIndex, x, y];
                     }
-                _startBlockPos = new Vector2(table.getCenter() - 1, 0);
-                _endBlockPos = new Vector2(table.getCenter() + 0, shapeDimension - 1);
+                _startBlockPos = new Vector2(table.GetCenter() - 1, 0);
+                _endBlockPos = new Vector2(table.GetCenter() + 0, shapeDimension - 1);
             }
             else
             // 3x3
@@ -339,8 +338,8 @@ namespace ExtremeTetris
                     {
                         currentShape[x, y] = shape3x3[currentShapeIndex - numShape2, x, y];
                     }
-                _startBlockPos = new Vector2(table.getCenter() - 1, 0);
-                _endBlockPos = new Vector2(table.getCenter() + 1, shapeDimension - 1);
+                _startBlockPos = new Vector2(table.GetCenter() - 1, 0);
+                _endBlockPos = new Vector2(table.GetCenter() + 1, shapeDimension - 1);
             }
             else
             // 4x4
@@ -353,8 +352,8 @@ namespace ExtremeTetris
                     {
                         currentShape[x, y] = shape4x4[currentShapeIndex - (numShape2 + numShape3), x, y];
                     }
-                _startBlockPos = new Vector2(table.getCenter() - 2, 0);
-                _endBlockPos = new Vector2(table.getCenter() + 1, shapeDimension - 1);
+                _startBlockPos = new Vector2(table.GetCenter() - 2, 0);
+                _endBlockPos = new Vector2(table.GetCenter() + 1, shapeDimension - 1);
             }
         }
 
@@ -362,7 +361,7 @@ namespace ExtremeTetris
         /// Checks if the shape positions (and block) are existing
         /// </summary>
         /// <returns>true - if exists, false - if not</returns>
-        public bool checkExisting()
+        public bool CheckExisting()
         {
             if (_startBlockPos.X != _defaultBlockPos.X && _startBlockPos.Y != _defaultBlockPos.Y &&
                 _endBlockPos.X != _defaultBlockPos.X && _endBlockPos.Y != _defaultBlockPos.Y)
@@ -375,7 +374,7 @@ namespace ExtremeTetris
         /// </summary>
         /// <param name="table"></param>
         /// <returns>true - if left is clear, false - if not</returns>
-        private bool checkLeftCollision(Table table)
+        private bool CheckLeftCollision(Table table)
         {
             for (int y = 0; y < shapeDimension; y++)
                 for (int x = 0; x < shapeDimension; x++)
@@ -398,14 +397,14 @@ namespace ExtremeTetris
         /// </summary>
         /// <param name="table"></param>
         /// <returns>true - if left is clear, false - if not</returns>
-        private bool checkRigthCollision(Table table)
+        private bool CheckRigthCollision(Table table)
         {
             for (int y = 0; y < shapeDimension; y++)
                 for (int x = shapeDimension - 1; x >= 0; x--)
                     if (currentShape[y, x] == false)
                         continue;
                     else
-                        if ((_endBlockPos.X - ((shapeDimension - 1) - x)) >= table.getCol() - 1)
+                        if ((_endBlockPos.X - ((shapeDimension - 1) - x)) >= table.GetCol() - 1)
                         return false;
                     else
                         if (table.tableContains[(int)_startBlockPos.Y + y,
@@ -421,14 +420,14 @@ namespace ExtremeTetris
         /// </summary>
         /// <param name="table"></param>
         /// <returns>true - if left is clear, false - if not</returns>
-        private bool checkBottomCollision(Table table)
+        private bool CheckBottomCollision(Table table)
         {
             for (int x = shapeDimension - 1; x >= 0; x--)
                 for (int y = shapeDimension - 1; y >= 0; y--)
                     if (currentShape[y, x] == false)
                         continue;
                     else
-                        if (((_endBlockPos.Y) - ((shapeDimension - 1) - y)) >= table.getRow() - 1)
+                        if (((_endBlockPos.Y) - ((shapeDimension - 1) - y)) >= table.GetRow() - 1)
                         return false;
                     else
                         if (table.tableContains[(int)_endBlockPos.Y - ((shapeDimension - 1) - y) + 1,
@@ -444,14 +443,14 @@ namespace ExtremeTetris
         /// </summary>
         /// <param name="table"></param>
         /// <returns>true - if left is clear, false - if not</returns>
-        private bool checkBottomCollision(Table table, int yoffset)
+        private bool CheckBottomCollision(Table table, int yoffset)
         {
             for (int x = shapeDimension - 1; x >= 0; x--)
                 for (int y = shapeDimension - 1; y >= 0; y--)
                     if (currentShape[y, x] == false)
                         continue;
                     else
-                        if (((_endBlockPos.Y + yoffset) - ((shapeDimension - 1) - y)) >= table.getRow() - 1)
+                        if (((_endBlockPos.Y + yoffset) - ((shapeDimension - 1) - y)) >= table.GetRow() - 1)
                         return false;
                     else
                         if (table.tableContains[((int)_endBlockPos.Y + yoffset) - ((shapeDimension - 1) - y) + 1,
@@ -468,14 +467,14 @@ namespace ExtremeTetris
         /// <param name="table"></param>
         /// <param name="checkShape"></param>
         /// <returns></returns>
-        private bool checkAllCollision(Table table, bool[,] checkShape)
+        private bool CheckAllCollision(Table table, bool[,] checkShape)
         {
             for (int y = 0; y < shapeDimension; y++)
                 for (int x = 0; x < shapeDimension; x++)
                     if (checkShape[y, x] == true)
                         if ((_startBlockPos.X + x) < 0 ||
-                            (_endBlockPos.X - ((shapeDimension - 1) - x) >= table.getCol()) ||
-                            (_endBlockPos.Y - ((shapeDimension - 1) - y) >= table.getRow()))
+                            (_endBlockPos.X - ((shapeDimension - 1) - x) >= table.GetCol()) ||
+                            (_endBlockPos.Y - ((shapeDimension - 1) - y) >= table.GetRow()))
                             return false;
                         else
                             if (table.tableContains[(int)_startBlockPos.Y + y,
@@ -487,17 +486,17 @@ namespace ExtremeTetris
         }
 
         /// <summary>
-        /// Finds last bottom position
+        /// Finds last bottom free position
         /// </summary>
         /// <param name="table"></param>
         /// <returns>true - if bottom exists and shape placed to it, false - if you are at bottom</returns>
-        public int tryFindBottom(Table table)
+        public int TryFindBottom(Table table)
         {
             // Counter for number of movings
             int count = 0;
-            while (checkBottomCollision(table))
+            while (CheckBottomCollision(table))
             {
-                moveShapeDown(table);
+                MoveShapeDown(table);
                 count++;
             }
             return count;
@@ -508,11 +507,11 @@ namespace ExtremeTetris
         /// </summary>
         /// <param name="table"></param>
         /// <returns></returns>
-        public int tryFindBottomGhost(Table table)
+        public int TryFindBottomGhost(Table table)
         {
             // Counter for number of movings
             int count = 0;
-            while (checkBottomCollision(table, count))
+            while (CheckBottomCollision(table, count))
             {
                 count++;
             }
@@ -525,40 +524,40 @@ namespace ExtremeTetris
         /// <summary>
         /// Rotates current shape counterclockwise
         /// </summary>
-        public void rotateLeft(Table table)
+        public void RotateLeft(Table table)
         {
             bool[,] newShape = new bool[shapeDimension, shapeDimension];
             for (int y = 0; y < shapeDimension; y++)
                 for (int x = 0; x < shapeDimension; x++)
                     newShape[y, x] = currentShape[x, shapeDimension - y - 1];
-            if (checkAllCollision(table, newShape))
-                setNewShape(newShape);
+            if (CheckAllCollision(table, newShape))
+                SetNewShape(newShape);
         }
 
         /// <summary>
         /// Rotates current shape clockwise
         /// </summary>
-        public void rotateRight(Table table)
+        public void RotateRight(Table table)
         {
             bool[,] newShape = new bool[shapeDimension, shapeDimension];
             for (int y = 0; y < shapeDimension; y++)
                 for (int x = 0; x < shapeDimension; x++)
                     newShape[y, x] = currentShape[shapeDimension - x - 1, y];
-            if (checkAllCollision(table, newShape))
-                setNewShape(newShape);
+            if (CheckAllCollision(table, newShape))
+                SetNewShape(newShape);
         }
 
         /// <summary>
         /// Make current shape saved at tableContains
         /// </summary>
         /// <param name="table"></param>
-        public void makeShapeTrue(Table table)
+        public void MakeShapeTrue(Table table)
         {
             for (int x = (int)_startBlockPos.X; x <= (int)_endBlockPos.X; x++)
                 for (int y = (int)_startBlockPos.Y; y <= (int)_endBlockPos.Y; y++)
-                    if (y < table.getRow() &&
+                    if (y < table.GetRow() &&
                         y >= 0 &&
-                        x < table.getCol() &&
+                        x < table.GetCol() &&
                         x >= 0 &&
                         currentShape[(shapeDimension - 1) - ((int)_endBlockPos.Y - y), (shapeDimension - 1) - ((int)_endBlockPos.X - x)] == true)
                         table.tableContains[y, x] = true;
@@ -568,7 +567,7 @@ namespace ExtremeTetris
         /// Sets shape by sent array of bools
         /// </summary>
         /// <param name="newShape"></param>
-        private void setNewShape(bool[,] newShape)
+        private void SetNewShape(bool[,] newShape)
         {
             for (int y = 0; y < shapeDimension; y++)
                 for (int x = 0; x < shapeDimension; x++)
@@ -578,10 +577,10 @@ namespace ExtremeTetris
         /// <summary>
         /// Moves current shape left at one block
         /// </summary>
-        public bool moveShapeLeft(Table table)
+        public bool MoveShapeLeft(Table table)
         {
-            if (checkExisting())
-                if (checkLeftCollision(table))
+            if (CheckExisting())
+                if (CheckLeftCollision(table))
                 {
                     _startBlockPos.X -= 1;
                     _endBlockPos.X -= 1;
@@ -593,10 +592,10 @@ namespace ExtremeTetris
         /// <summary>
         /// Moves current shape right at one block
         /// </summary>
-        public bool moveShapeRight(Table table)
+        public bool MoveShapeRight(Table table)
         {
-            if (checkExisting())
-                if (checkRigthCollision(table))
+            if (CheckExisting())
+                if (CheckRigthCollision(table))
                 {
                     _startBlockPos.X += 1;
                     _endBlockPos.X += 1;
@@ -608,10 +607,10 @@ namespace ExtremeTetris
         /// <summary>
         /// Moves current shape down at one block
         /// </summary>
-        public bool moveShapeDown(Table table)
+        public bool MoveShapeDown(Table table)
         {
-            if (checkExisting())
-                if (checkBottomCollision(table))
+            if (CheckExisting())
+                if (CheckBottomCollision(table))
                 {
                     _startBlockPos.Y += 1;
                     _endBlockPos.Y += 1;
@@ -624,25 +623,25 @@ namespace ExtremeTetris
         /// Changes positions of shape
         /// </summary>
         /// <param name="tableDistination"></param>
-        public void changeTable(Table tableDistination)
+        public void ChangeTable(Table tableDistination)
         {
             if (currentShapeIndex < numShape2)
             {
-                _startBlockPos = new Vector2(tableDistination.getCenter() - 1, 0);
-                _endBlockPos = new Vector2(tableDistination.getCenter() + 0, shapeDimension - 1);
+                _startBlockPos = new Vector2(tableDistination.GetCenter() - 1, 0);
+                _endBlockPos = new Vector2(tableDistination.GetCenter() + 0, shapeDimension - 1);
             }
             else
             // 3x3
             if (currentShapeIndex < numShape2 + numShape3)
             {
-                _startBlockPos = new Vector2(tableDistination.getCenter() - 1, 0);
-                _endBlockPos = new Vector2(tableDistination.getCenter() + 1, shapeDimension - 1);
+                _startBlockPos = new Vector2(tableDistination.GetCenter() - 1, 0);
+                _endBlockPos = new Vector2(tableDistination.GetCenter() + 1, shapeDimension - 1);
             }
             else
             // 4x4
             {
-                _startBlockPos = new Vector2(tableDistination.getCenter() - 2, 0);
-                _endBlockPos = new Vector2(tableDistination.getCenter() + 1, shapeDimension - 1);
+                _startBlockPos = new Vector2(tableDistination.GetCenter() - 2, 0);
+                _endBlockPos = new Vector2(tableDistination.GetCenter() + 1, shapeDimension - 1);
             }
         }
     }
