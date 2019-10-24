@@ -22,7 +22,7 @@ namespace ExtremeTetris
         /// <summary>
         /// Moves selected menu down
         /// </summary>
-        public void IncreaseMenu()
+        public void increaseMenu()
         {
             if (selectedMenu < numOfMenus - 1)
                 selectedMenu++; 
@@ -31,7 +31,7 @@ namespace ExtremeTetris
         /// <summary>
         /// Moves selected menu up
         /// </summary>
-        public void DecreaseMenu()
+        public void decreaseMenu()
         {
             if (selectedMenu > 0)
                 selectedMenu--;
@@ -41,19 +41,28 @@ namespace ExtremeTetris
         /// Get number of Menus
         /// </summary>
         /// <returns>Int of Menus</returns>
-        public int GetNumberOfMenus => numOfMenus;
+        public int getNumberOfMenus()
+        {
+            return numOfMenus;
+        }
 
         /// <summary>
         /// Get Menus
         /// </summary>
         /// <returns>String[] of Menus</returns>
-        public string[] GetMenus => menus;
+        public string[] getMenus()
+        {
+            return menus;
+        }
 
         /// <summary>
         /// Get index of selected Menus
         /// </summary>
         /// <returns>Int of selected Menus</returns>
-        public int getSelectedIndex => selectedMenu;
+        public int getSelectedIndex()
+        {
+            return selectedMenu;
+        }
 
     }
 }

@@ -21,7 +21,7 @@ namespace ExtremeTetris
         /// Adds score depending on count param
         /// </summary>
         /// <param name="count"></param>
-        public void AddScore(short count)
+        public void addScore(short count)
         {
             double multiplier;
             if (count > 1)
@@ -35,12 +35,15 @@ namespace ExtremeTetris
         /// Returns score
         /// </summary>
         /// <returns>Score of uint type</returns>
-        public uint GetScore => currentScore;
+        public uint getScore()
+        {
+            return currentScore;
+        }
 
         /// <summary>
         /// Cleares current score
         /// </summary>
-        public void Clear()
+        public void clear()
         {
             currentScore = defaultScore;
         }

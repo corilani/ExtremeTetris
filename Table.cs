@@ -7,106 +7,86 @@ namespace ExtremeTetris
     class Table
     {
         public bool[,] tableContains;
+        public float[][] tableConstainsColor;
+
         public int col;
         public int row;
         public int spacing;
         public int center;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="spacing"></param>
-        public void CreateTable(int width, int height, int spacing)
+        public void createTable(int width, int height, int spacing)
         {
             tableContains = new bool[height, width];
-            SetCol(width);
-            SetRow(height);
-            SetSpacing(spacing);
-            SetCenter(width);
+            setCol(width);
+            setRow(height);
+            setSpacing(spacing);
+            setCenter(width);
         }
 
         /// <summary>
-        /// Cleans the table contains
+        /// Cleans the table appearance
         /// </summary>
-        public void Clear()
+        public void clear()
         {
-            for (int y = 0; y < GetRow(); y++)
-                for (int x = 0; x < GetCol(); x++)
+            for (int y = 0; y < getRow(); y++)
+                for (int x = 0; x < getCol(); x++)
                 {
                     tableContains[y, x] = false;
                 }
         }
 
-        /// <summary>
-        /// Changes Column variable
-        /// </summary>
-        /// <param name="value"></param>
-        private void SetCol(int value)
+        private void setCol(int value)
         {
             col = value;
         }
 
-        /// <summary>
-        /// Changes Row variable
-        /// </summary>
-        /// <param name="value"></param>
-        private void SetRow(int value)
+        private void setRow(int value)
         {
             row = value;
         }
 
-        /// <summary>
-        /// Changes Table Spacing
-        /// </summary>
-        /// <param name="value"></param>
-        private void SetSpacing(int value)
+        private void setSpacing(int value)
         {
             spacing = value;
         }
 
-        /// <summary>
-        /// Changes Table center
-        /// </summary>
-        /// <param name="value"></param>
-        private void SetCenter(int value)
+        private void setCenter(int value)
         {
             center = value / 2;
         }
 
         /// <summary>
-        /// Get Colomn variable (amount of columns)
+        /// Get amount of colomns
         /// </summary>
         /// <returns>Colomns of int type</returns>
-        public int GetCol()
+        public int getCol()
         {
             return col;
         }
 
         /// <summary>
-        /// Get Row variable (amount of rows)
+        /// Get amount of rows
         /// </summary>
         /// <returns>Rows of int type</returns>
-        public int GetRow()
+        public int getRow()
         {
             return row;
         }
 
         /// <summary>
-        /// Get Spacing variable
+        /// Get spacing
         /// </summary>
         /// <returns>Spacing of int type</returns>
-        public int GetSpacing()
+        public int getSpacing()
         {
             return spacing;
         }
 
         /// <summary>
-        /// Get Center variable (Table Center)
+        /// Get center of table
         /// </summary>
         /// <returns>Center of int type</returns>
-        public int GetCenter()
+        public int getCenter()
         {
             return center;
         }
